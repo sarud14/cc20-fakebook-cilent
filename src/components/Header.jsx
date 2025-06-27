@@ -11,6 +11,7 @@ import {
   SearchIcon,
 } from "../icons/index";
 import { Link } from "react-router";
+import Avatar from "./Avatar";
 function Header() {
   const logout = useUserStore((state) => state.logout);
   return (
@@ -64,6 +65,7 @@ function Header() {
             <NotificationIcon className="w-5" />
           </div>
         </div>
+        <Avatar menu className="w-11" imgSrc="https://www.svgrepo.com/show/485222/dragon-ball.svg"/>
       </div>
     </div>
   );
