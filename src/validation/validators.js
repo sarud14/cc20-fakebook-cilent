@@ -11,7 +11,7 @@ export const loginSchema = object({
       return emailRegex.test(value) || mobileRegex.test(value);
     }
   ),
-  password: string().min(4).required(),
+  password: string().required(),
   email: string().email(),
   mobile: string().matches(mobileRegex, "Invalid Phone NUmber"),
 }).noUnknown();

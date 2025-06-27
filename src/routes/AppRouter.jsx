@@ -1,10 +1,7 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  Outlet,
-  RouterProvider,
-} from "react-router";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import { useState, lazy, Suspense } from "react";
+import useUserStore from "../stores/userStores";
+import UserLayout from "../layouts/UserLayout";
 // import Login from "../pages/Login";
 // import Home from "../pages/Home";
 // import Friends from "../pages/Friends";
@@ -24,12 +21,7 @@ const guestRouter = createBrowserRouter([
 const userRouter = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<p>Loading...</p>}>
-        <div className="text-4xl py-4 border">Header</div>
-        <Outlet />
-      </Suspense>
-    ),
+    element: <UserLayout />,
     children: [
       { index: true, element: <Home /> },
       { path: "friends", element: <Friends /> },
@@ -40,15 +32,11 @@ const userRouter = createBrowserRouter([
 ]);
 
 export default function AppRouter() {
-  let user = null
-  // const [user, setUser] = useState(false);
+  const user = useUserStore((state) => state.user);
   const finalRouter = user ? userRouter : guestRouter;
   return (
-    <>
-      {/* <button className="btn btn-accent" onClick={() => setUser(!user)}>
-        Login
-      </button> */}
-      <RouterProvider router={finalRouter} />
-    </>
+    <Suspense fallback={<p>Loading...</p>}>  
+      <RouterProvider key={user?.id} router={finalRouter} />
+    </Suspense>
   );
 }
