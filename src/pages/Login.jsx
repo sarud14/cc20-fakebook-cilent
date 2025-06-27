@@ -18,7 +18,7 @@ export default function Login() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const result = await login(data);
-      toast.success(result.data.message);
+      // toast.success(result.data.message);
       // localStorage.setItem("firstName", JSON.stringify(result.data.user))
     } catch (error) {
       const errMessage = error.response?.data?.error || error.message;
